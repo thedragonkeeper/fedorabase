@@ -6,6 +6,10 @@ on:
         description: 'The Fedora release version: 39, 40, 41 etc'
         required: true
         type: string
+      akmod_version:
+        description: 'akmod version'
+        required: true
+        type: string
 env:
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -26,6 +30,8 @@ jobs:
       matrix:
         fedora_version:
           - ${{ inputs.fedora_version }}
+        akmod_version:
+          - ${{ inputs.akmod_version }}
         image_name:
           - sericea
         exclude:
@@ -62,12 +68,12 @@ jobs:
             IS_STABLE_VERSION=true
             IS_GTS_VERSION=true
           elif [[ "${{ matrix.fedora_version }}" -eq "40" ]]; then
-            IS_LATEST_VERSION=true
+            IS_LATEST_VERSION=false
             IS_STABLE_VERSION=true
             IS_GTS_VERSION=false
-          elif [[ "${{ matrix.fedora_version }}" -eq "41" ]]; then
-            IS_LATEST_VERSION=false
-            IS_STABLE_VERSION=false
+          elif [[ "${{ matrix.fedora_version }}" -eq "rawhide" ]]; then
+            IS_LATEST_VERSION=true
+            IS_STABLE_VERSION=true
             IS_GTS_VERSION=false
           fi
 
@@ -172,6 +178,7 @@ jobs:
             SOURCE_ORG=${{ env.SOURCE_ORG }}
             SOURCE_IMAGE=${{ env.SOURCE_IMAGE }}
             FEDORA_MAJOR_VERSION=${{ matrix.fedora_version }}
+            AKMOD_VERSION=${{ matrix.akmod_version }}
             RPMFUSION_MIRROR=${{ vars.RPMFUSION_MIRROR }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
