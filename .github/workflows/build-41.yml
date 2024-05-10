@@ -13,4 +13,4 @@ jobs:
     secrets: inherit
     with:
       fedora_version: rawhide
-      akmod_version: 40
+      akmod_version: fsync-40
