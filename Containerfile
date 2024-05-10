@@ -18,7 +18,7 @@ COPY github-release-install.sh \
         /tmp/
 
 COPY --from=ghcr.io/ublue-os/config:latest /rpms /tmp/rpms
-COPY --from=ghcr.io/ublue-os/akmods:main-${AKMOD_VERSION} /rpms/ublue-os /tmp/rpms
+COPY --from=ghcr.io/ublue-os/akmods:main-40 /rpms/ublue-os /tmp/rpms
 COPY sys_files/usr /usr
 
 RUN mkdir -p /var/lib/alternatives && \
