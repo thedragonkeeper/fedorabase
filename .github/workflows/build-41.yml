@@ -3,7 +3,7 @@ on:
   pull_request:
   merge_group:
   schedule:
-    - cron: '0 15 * * *'  # 3pm-ish UTC everyday (timed against official fedora container pushes)
+    - cron: '00 20 * * 2,4,6' 
   workflow_dispatch:
 
 jobs:
